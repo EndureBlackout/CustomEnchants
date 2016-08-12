@@ -1,0 +1,6 @@
+name: CustomEnchants
+main: me.endureblackout.customenchants.CustomEnchantsMain
+version: 1.0
+commands:
+      ce:
+       description: Starter Command.
