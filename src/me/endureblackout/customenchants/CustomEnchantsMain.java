@@ -61,6 +61,10 @@ public class CustomEnchantsMain extends JavaPlugin implements Listener {
 			getConfig().addDefault("Wither1.Chance", 0.1);
 			getConfig().addDefault("Weakness1.Chance", 0.1);
 			getConfig().addDefault("Blindness1.Chance", 0.1);
+			getConfig().addDefault("Regen1.Chance", 0.1);
+			getConfig().addDefault("FireRes1.Chance", 0.1);
+			getConfig().addDefault("Strength1.Chance", 0.1);
+			getConfig().addDefault("Speed1.Chance", 0.1);
 		}
 	}
 	
@@ -73,13 +77,77 @@ public class CustomEnchantsMain extends JavaPlugin implements Listener {
 				if(e.getClickedBlock().getState() instanceof Sign) {
 					if(p.getItemInHand().getType() == Material.GOLD_SWORD || p.getItemInHand().getType() ==  Material.WOOD_SWORD || p.getItemInHand().getType() == Material.IRON_SWORD || p.getItemInHand().getType() == Material.DIAMOND_SWORD || p.getItemInHand().getType() == Material.STONE_SWORD
 							|| p.getItemInHand().getType() == Material.DIAMOND_HOE || p.getItemInHand().getType() == Material.IRON_HOE || p.getItemInHand().getType() == Material.GOLD_HOE || p.getItemInHand().getType() == Material.STONE_HOE || p.getItemInHand().getType() == Material.WOOD_HOE
-							|| p.getItemInHand().getType() == Material.DIAMOND_AXE || p.getItemInHand().getType() == Material.IRON_AXE || p.getItemInHand().getType() == Material.STONE_AXE || p.getItemInHand().getType() == Material.GOLD_AXE || p.getItemInHand().getType() == Material.WOOD_AXE) {
+							|| p.getItemInHand().getType() == Material.DIAMOND_AXE || p.getItemInHand().getType() == Material.IRON_AXE || p.getItemInHand().getType() == Material.STONE_AXE || p.getItemInHand().getType() == Material.GOLD_AXE || p.getItemInHand().getType() == Material.WOOD_AXE
+							|| p.getItemInHand().getType() == Material.BOW) {
 						Sign s = (Sign) e.getClickedBlock().getState();
 						ItemStack sword = p.getItemInHand();
 						ItemMeta swordMeta = sword.getItemMeta();
 						List<String> lore = new ArrayList<String>();
 						
 						if(s.getLine(0).equalsIgnoreCase("[Enchant]")) {
+							
+							if(s.getLine(1).equalsIgnoreCase("Regen")) {
+								if(s.getLine(2).equalsIgnoreCase("I")) {
+									lore.add(ChatColor.GRAY + "Regeneration I");
+									
+									if(swordMeta.getLore() != null) {
+										lore.addAll(swordMeta.getLore());
+									}
+									
+									swordMeta.setLore(lore);
+									sword.setItemMeta(swordMeta);
+									
+									p.sendMessage(ChatColor.GREEN + "[Custom Enchants] Successfully enchanted with regeneration I!");
+								}
+							}
+							
+							
+							if(s.getLine(1).equalsIgnoreCase("Strength")) {
+								if(s.getLine(2).equalsIgnoreCase("I")) {
+									lore.add(ChatColor.GRAY + "Strength I");
+									
+									if(swordMeta.getLore() != null) {
+										lore.addAll(swordMeta.getLore());
+									}
+									
+									swordMeta.setLore(lore);
+									sword.setItemMeta(swordMeta);
+									
+									p.sendMessage(ChatColor.GREEN + "[Custom Enchants] Successfully enchanted with strenght I!");
+								}
+							}
+							
+							
+							if(s.getLine(1).equalsIgnoreCase("Swiftness")) {
+								if(s.getLine(2).equalsIgnoreCase("I")) {
+									lore.add(ChatColor.GRAY + "Swiftness I");
+									
+									if(swordMeta.getLore() != null) {
+										lore.addAll(swordMeta.getLore());
+									}
+									
+									swordMeta.setLore(lore);
+									sword.setItemMeta(swordMeta);
+									
+									p.sendMessage(ChatColor.GREEN + "[Custom Enchants] Successfully enchanted with Swiftness I!");
+								}
+							}
+							
+							
+							if(s.getLine(1).equalsIgnoreCase("FireRes")) {
+								if(s.getLine(2).equalsIgnoreCase("I")) {
+									lore.add(ChatColor.GRAY + "Fire Resistance I");
+									
+									if(swordMeta.getLore() != null) {
+										lore.addAll(swordMeta.getLore());
+									}
+									
+									swordMeta.setLore(lore);
+									sword.setItemMeta(swordMeta);
+									
+									p.sendMessage(ChatColor.GREEN + "[Custom Enchants] Successfully enchanted with fire resistance I!");
+								}
+							}
 							
 							if(s.getLine(1).equalsIgnoreCase("Wither")) {
 								if(s.getLine(2).equalsIgnoreCase("I")) {
@@ -231,10 +299,38 @@ public class CustomEnchantsMain extends JavaPlugin implements Listener {
 							|| hitter.getItemInHand().getType() == Material.DIAMOND_HOE || hitter.getItemInHand().getType() == Material.IRON_HOE || hitter.getItemInHand().getType() == Material.GOLD_HOE || hitter.getItemInHand().getType() == Material.STONE_HOE || hitter.getItemInHand().getType() == Material.WOOD_HOE
 							|| hitter.getItemInHand().getType() == Material.DIAMOND_AXE || hitter.getItemInHand().getType() == Material.IRON_AXE || hitter.getItemInHand().getType() == Material.STONE_AXE || hitter.getItemInHand().getType() == Material.GOLD_AXE || hitter.getItemInHand().getType() == Material.WOOD_AXE) {
 			if(e.getEntity() instanceof Player && e.getDamager() instanceof Player) {
-	
 				
 				if(hitter.getItemInHand().getItemMeta().hasLore()){
 					for(String s : hitter.getItemInHand().getItemMeta().getLore()) {
+						
+						if(s.contains(ChatColor.stripColor("Regeneration I"))) {
+							double chance = getConfig().getDouble("Regen1.Chance");
+							if(Math.random() <= chance) {
+								hitter.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
+							}
+						}
+						
+						if(s.contains(ChatColor.stripColor("Fire Resistance I"))) {
+							double chance = getConfig().getDouble("FireRes1.Chance");
+							if(Math.random() <= chance) {
+								hitter.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 100, 1));
+							}
+						}
+						
+						if(s.contains(ChatColor.stripColor("Strength I"))) {
+							double chance = getConfig().getDouble("Strength1.Chance");
+							if(Math.random() <= chance) {
+								hitter.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 1));
+							}
+						}
+						
+						if(s.contains(ChatColor.stripColor("Swiftness I"))) {
+							double chance = getConfig().getDouble("Speed1.Chance");
+							if(Math.random() <= chance) {
+								hitter.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, 1));
+							}
+						}
+						
 						if(s.contains(ChatColor.stripColor("Poison I"))) {
 							double chance = getConfig().getDouble("Poison1.Chance");
 							if(Math.random() <= chance) {
