@@ -80,6 +80,65 @@ public class CustomEnchantsMain extends JavaPlugin implements Listener {
 						List<String> lore = new ArrayList<String>();
 						
 						if(s.getLine(0).equalsIgnoreCase("[Enchant]")) {
+							
+							if(s.getLine(1).equalsIgnoreCase("Wither")) {
+								if(s.getLine(2).equalsIgnoreCase("I")) {
+									lore.add(ChatColor.GRAY + "Wither I");
+									if(swordMeta.getLore() !=null) {
+										lore.addAll(swordMeta.getLore());
+									}
+									
+									swordMeta.setLore(lore);
+									sword.setItemMeta(swordMeta);
+									
+									p.sendMessage(ChatColor.GREEN + "[Custom Enchants] Successfully enchanted with wither I!");
+								}
+							}
+							
+							if(s.getLine(1).equalsIgnoreCase("Weakness")) {
+								if(s.getLine(2).equalsIgnoreCase("I")) {
+									lore.add(ChatColor.GRAY + "Wither I");
+									
+									if(swordMeta.getLore() != null) {
+										lore.addAll(swordMeta.getLore());
+									}
+									
+									swordMeta.setLore(lore);
+									sword.setItemMeta(swordMeta);
+									
+									p.sendMessage(ChatColor.GREEN + "[Custom Enchants] Successfully enchanted with wither I!");
+								}
+							}
+							
+							if(s.getLine(1).equalsIgnoreCase("Blindness")) {
+								if(s.getLine(2).equalsIgnoreCase("I")) {
+									lore.add(ChatColor.GRAY + "Blindness I");
+									
+									if(swordMeta.getLore() != null) {
+										lore.addAll(swordMeta.getLore());
+									}
+									
+									swordMeta.setLore(lore);
+									sword.setItemMeta(swordMeta);
+									
+									p.sendMessage(ChatColor.GREEN + "[CustomEnchants] Successfully enchanted with blindness I");
+								}
+							}
+							
+							if(s.getLine(1).equalsIgnoreCase("Nausea")) {
+								if(s.getLine(2).equalsIgnoreCase("I")) {
+									lore.add(ChatColor.GRAY + "Nausea I");
+									if(swordMeta.getLore() != null) {
+										lore.addAll(swordMeta.getLore());
+									}
+									
+									swordMeta.setLore(lore);
+									sword.setItemMeta(swordMeta);
+									
+									p.sendMessage(ChatColor.GREEN + "[Custom Enchants] Successfully enchanted with nausea I!");
+								}
+							}
+							
 							if(s.getLine(1).equalsIgnoreCase("Slowness")) {
 								if(s.getLine(2).equalsIgnoreCase("I")) {
 									lore.add(ChatColor.GRAY + "Slowness I");
@@ -165,51 +224,85 @@ public class CustomEnchantsMain extends JavaPlugin implements Listener {
 	
 	@EventHandler
 	public void onPlayerHitPlayer(EntityDamageByEntityEvent e) {
-		if(e.getEntity() instanceof Player && e.getDamager() instanceof Player) {
-			Player hit = (Player) e.getEntity();
-			Player hitter = (Player) e.getDamager();
-			
-			if(hitter.getItemInHand().getItemMeta().hasLore()){
-				for(String s : hitter.getItemInHand().getItemMeta().getLore()) {
-					if(s.contains(ChatColor.stripColor("Poison I"))) {
-						double chance = getConfig().getDouble("Poison1.Chance");
-						if(Math.random() <= chance) {
-							hit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 1));
+		Player hit = (Player) e.getEntity();
+		Player hitter = (Player) e.getDamager();
+		
+		if(hitter.getItemInHand().getType() == Material.GOLD_SWORD || hitter.getItemInHand().getType() ==  Material.WOOD_SWORD || hitter.getItemInHand().getType() == Material.IRON_SWORD || hitter.getItemInHand().getType() == Material.DIAMOND_SWORD || hitter.getItemInHand().getType() == Material.STONE_SWORD
+							|| hitter.getItemInHand().getType() == Material.DIAMOND_HOE || hitter.getItemInHand().getType() == Material.IRON_HOE || hitter.getItemInHand().getType() == Material.GOLD_HOE || hitter.getItemInHand().getType() == Material.STONE_HOE || hitter.getItemInHand().getType() == Material.WOOD_HOE
+							|| hitter.getItemInHand().getType() == Material.DIAMOND_AXE || hitter.getItemInHand().getType() == Material.IRON_AXE || hitter.getItemInHand().getType() == Material.STONE_AXE || hitter.getItemInHand().getType() == Material.GOLD_AXE || hitter.getItemInHand().getType() == Material.WOOD_AXE) {
+			if(e.getEntity() instanceof Player && e.getDamager() instanceof Player) {
+	
+				
+				if(hitter.getItemInHand().getItemMeta().hasLore()){
+					for(String s : hitter.getItemInHand().getItemMeta().getLore()) {
+						if(s.contains(ChatColor.stripColor("Poison I"))) {
+							double chance = getConfig().getDouble("Poison1.Chance");
+							if(Math.random() <= chance) {
+								hit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 1));
+							}
 						}
-					}
-					
-					if(s.contains(ChatColor.stripColor("Poison II"))) {
-						double chance = getConfig().getDouble("Poison2.Chance");
-						if(Math.random() <= chance) {
-							hit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 2));
+						
+						if(s.contains(ChatColor.stripColor("Poison II"))) {
+							double chance = getConfig().getDouble("Poison2.Chance");
+							if(Math.random() <= chance) {
+								hit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 2));
+							}
 						}
-					}
-					
-					if(s.contains(ChatColor.stripColor("Poison III"))) {
-						double chance = getConfig().getDouble("Poison3.Chance");
-						if(Math.random() <= chance) {
-							hit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 3));
+						
+						if(s.contains(ChatColor.stripColor("Poison III"))) {
+							double chance = getConfig().getDouble("Poison3.Chance");
+							if(Math.random() <= chance) {
+								hit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 3));
+							}
 						}
-					}
-					
-					if(s.contains(ChatColor.stripColor("Poison IV"))) {
-						double chance = getConfig().getDouble("Poison4.Chance");
-						if(Math.random() <= chance) {
-							hit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 4));
+						
+						if(s.contains(ChatColor.stripColor("Poison IV"))) {
+							double chance = getConfig().getDouble("Poison4.Chance");
+							if(Math.random() <= chance) {
+								hit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 4));
+							}
 						}
-					}
-					
-					if(s.contains(ChatColor.stripColor("Poison V"))) {
-						double chance = getConfig().getDouble("Poison5.Chance");
-						if(Math.random() <= chance) {
-							hit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 5));
+						
+						if(s.contains(ChatColor.stripColor("Poison V"))) {
+							double chance = getConfig().getDouble("Poison5.Chance");
+							if(Math.random() <= chance) {
+								hit.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 5));
+							}
 						}
-					}
-					
-					if(s.contains(ChatColor.stripColor("Slowness I"))) {
-						double chance = getConfig().getDouble("Slowness1.Chance");
-						if(Math.random() <= chance) {
-							hit.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1));
+						
+						if(s.contains(ChatColor.stripColor("Slowness I"))) {
+							double chance = getConfig().getDouble("Slowness1.Chance");
+							if(Math.random() <= chance) {
+								hit.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1));
+							}
+						}
+						
+						if(s.contains(ChatColor.stripColor("Nausea I"))) {
+							double chance = getConfig().getDouble("Nausea1.Chance");
+							if(Math.random() <= chance) {
+								hit.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 100, 1));
+							}
+						}
+						
+						if(s.contains(ChatColor.stripColor("Wither I"))) {
+							double chance = getConfig().getDouble("Wither1.Chance");
+							if(Math.random() <= chance) {
+								hit.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 100, 1));
+							}
+						}
+						
+						if(s.contains(ChatColor.stripColor("Weakness I"))) {
+							double chance = getConfig().getDouble("Weakness1.Chance");
+							if(Math.random() <= chance) {
+								hit.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 1));
+							}
+						}
+						
+						if(s.contains(ChatColor.stripColor("Blindess I"))) {
+							double chance = getConfig().getDouble("Blindness1.Chance");
+							if(Math.random() <= chance) {
+								hit.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 1));
+							}
 						}
 					}
 				}
